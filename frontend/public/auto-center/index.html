@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Auto Prime Performance | Centro Automotivo Premium</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --primary: #1ee59a;
+      --primary-dark: #12b977;
+      --background: #050910;
+      --background-alt: #0a1424;
+      --card: rgba(10, 20, 36, 0.85);
+      --text: #f6f8fc;
+      --muted: rgba(246, 248, 252, 0.7);
+      --accent: #2f80ed;
+      --shadow: 0 20px 45px rgba(0, 0, 0, 0.35);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Roboto", "Poppins", sans-serif;
+      color: var(--text);
+      background: var(--background);
+      line-height: 1.6;
+      scroll-behavior: smooth;
+    }
+
+    .layout {
+      width: min(1200px, 92vw);
+      margin: 0 auto;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      background: rgba(5, 9, 16, 0.92);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 0;
+    }
+
+    .brand {
+      font-family: "Poppins", sans-serif;
+      font-weight: 600;
+      font-size: 1.4rem;
+      color: var(--text);
+      letter-spacing: 0.04em;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--muted);
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover,
+    nav a:focus {
+      color: var(--primary);
+    }
+
+    .btn-whatsapp {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: #02121f;
+      font-weight: 600;
+      padding: 0.75rem 1.6rem;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      box-shadow: var(--shadow);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .btn-whatsapp:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 25px 55px rgba(30, 229, 154, 0.4);
+    }
+
+    .btn-whatsapp svg {
+      width: 1.2rem;
+      height: 1.2rem;
+    }
+
+    section {
+      padding: 5rem 0;
+    }
+
+    #home {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .hero-text h1 {
+      font-family: "Poppins", sans-serif;
+      font-size: clamp(2.2rem, 3vw + 1rem, 3.5rem);
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+
+    .hero-text p {
+      font-size: 1.05rem;
+      color: var(--muted);
+      margin-bottom: 1.8rem;
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .stat-card {
+      background: var(--card);
+      padding: 1.2rem 1.6rem;
+      border-radius: 18px;
+      min-width: 140px;
+      box-shadow: var(--shadow);
+      text-align: center;
+    }
+
+    .stat-card span {
+      display: block;
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: var(--primary);
+    }
+
+    .slideshow {
+      position: relative;
+      width: 100%;
+      max-width: 520px;
+      margin: 0 auto;
+      overflow: hidden;
+      border-radius: 28px;
+      box-shadow: 0 35px 80px rgba(0, 0, 0, 0.45);
+    }
+
+    .slides {
+      display: flex;
+      transition: transform 0.8s ease;
+    }
+
+    .slide {
+      min-width: 100%;
+      position: relative;
+      background: var(--background-alt);
+    }
+
+    .slide img {
+      width: 100%;
+      display: block;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .slide-caption {
+      position: absolute;
+      bottom: 1.5rem;
+      left: 1.5rem;
+      right: 1.5rem;
+      padding: 1rem 1.4rem;
+      border-radius: 16px;
+      background: rgba(2, 12, 24, 0.75);
+      backdrop-filter: blur(6px);
+      font-family: "Poppins", sans-serif;
+    }
+
+    .slide-caption h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0.4rem;
+      color: var(--primary);
+    }
+
+    .dots {
+      position: absolute;
+      display: flex;
+      gap: 0.5rem;
+      bottom: 1rem;
+      right: 1.5rem;
+    }
+
+    .dots button {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(255, 255, 255, 0.3);
+      cursor: pointer;
+      transition: transform 0.3s ease, background 0.3s ease;
+    }
+
+    .dots button.active {
+      background: var(--primary);
+      transform: scale(1.3);
+    }
+
+    .section-title {
+      font-family: "Poppins", sans-serif;
+      font-size: 2.2rem;
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .section-title span {
+      color: var(--primary);
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.8rem;
+    }
+
+    .service-card {
+      background: var(--card);
+      border-radius: 22px;
+      padding: 1.8rem 1.6rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .service-card::before {
+      content: "";
+      position: absolute;
+      inset: -40% 40% 60% -40%;
+      background: linear-gradient(135deg, rgba(47, 128, 237, 0.32), rgba(30, 229, 154, 0.26));
+      transform: rotate(8deg);
+    }
+
+    .service-card img {
+      width: 100%;
+      border-radius: 16px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .service-card h3,
+    .service-card p,
+    .service-card ul {
+      position: relative;
+      z-index: 1;
+    }
+
+    .service-card h3 {
+      font-family: "Poppins", sans-serif;
+      font-size: 1.3rem;
+    }
+
+    .service-card ul {
+      list-style: none;
+      display: grid;
+      gap: 0.35rem;
+      font-size: 0.95rem;
+      color: var(--muted);
+    }
+
+    .service-card ul li::before {
+      content: "•";
+      color: var(--primary);
+      margin-right: 0.4rem;
+    }
+
+    .highlight-boxes {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .highlight {
+      background: linear-gradient(135deg, rgba(30, 229, 154, 0.16), rgba(47, 128, 237, 0.2));
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 24px;
+      padding: 2rem;
+      display: grid;
+      gap: 1rem;
+    }
+
+    .highlight img {
+      width: 100%;
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .highlight h4 {
+      font-family: "Poppins", sans-serif;
+      font-size: 1.4rem;
+      color: var(--primary);
+    }
+
+    .map-container {
+      border-radius: 22px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      height: 420px;
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .social-proof {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.6rem;
+    }
+
+    .proof-card {
+      background: rgba(12, 22, 38, 0.9);
+      border-radius: 22px;
+      padding: 1.6rem;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      box-shadow: var(--shadow);
+      position: relative;
+    }
+
+    .proof-card::before {
+      content: "★★★★★";
+      color: var(--primary);
+      letter-spacing: 0.3rem;
+      font-size: 0.9rem;
+      display: block;
+      margin-bottom: 0.8rem;
+    }
+
+    .proof-card p {
+      color: var(--muted);
+      font-size: 0.98rem;
+      margin-bottom: 1rem;
+    }
+
+    .proof-card span {
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .faq-grid {
+      display: grid;
+      gap: 1rem;
+    }
+
+    details {
+      background: var(--card);
+      border-radius: 18px;
+      padding: 1.4rem 1.6rem;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      cursor: pointer;
+      transition: border 0.3s ease;
+    }
+
+    summary {
+      font-weight: 600;
+      font-family: "Poppins", sans-serif;
+      outline: none;
+    }
+
+    details[open] {
+      border-color: var(--primary);
+    }
+
+    details p {
+      margin-top: 0.8rem;
+      color: var(--muted);
+      font-size: 0.98rem;
+    }
+
+    .cta-section {
+      background: radial-gradient(circle at top right, rgba(47, 128, 237, 0.35), transparent 55%),
+        linear-gradient(135deg, rgba(30, 229, 154, 0.24), rgba(5, 9, 16, 0.9));
+      border-radius: 28px;
+      padding: 3rem;
+      display: grid;
+      gap: 1rem;
+      text-align: center;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .cta-section h3 {
+      font-family: "Poppins", sans-serif;
+      font-size: 2rem;
+    }
+
+    footer {
+      padding: 2rem 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      text-align: center;
+      color: var(--muted);
+      background: rgba(5, 9, 16, 0.94);
+    }
+
+    .floating-whatsapp {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 1000;
+    }
+
+    .floating-whatsapp a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 62px;
+      height: 62px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      box-shadow: 0 20px 50px rgba(30, 229, 154, 0.4);
+    }
+
+    .floating-whatsapp svg {
+      width: 28px;
+      height: 28px;
+      fill: #02121f;
+    }
+
+    @media (max-width: 768px) {
+      nav ul {
+        display: none;
+      }
+
+      header {
+        padding-bottom: 0.5rem;
+      }
+
+      .hero-stats {
+        justify-content: center;
+      }
+
+      section {
+        padding: 4rem 0;
+      }
+
+      .cta-section {
+        padding: 2.2rem 1.4rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="layout navbar">
+      <div class="brand">Auto Prime Performance</div>
+      <nav aria-label="Principal">
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#servicos">Serviços</a></li>
+          <li><a href="#endereco">Endereço</a></li>
+          <li><a href="#orcamento">Solicite orçamento</a></li>
+        </ul>
+      </nav>
+      <a class="btn-whatsapp" href="https://wa.me/5511999998888" target="_blank" rel="noopener noreferrer">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" aria-hidden="true"><path d="M16.02 4C9.93 4 5 8.94 5 15.02c0 2.4.7 4.66 2 6.6L5 27l5.55-1.82A11.02 11.02 0 0 0 16.02 26C22.1 26 27 21.07 27 15 27 8.94 22.1 4 16.02 4Zm0 19.78c-1.74 0-3.44-.47-4.92-1.36l-.35-.2-3.29 1.08 1.08-3.2-.23-.34a9.04 9.04 0 0 1-1.4-4.83c0-5 4.06-9.06 9.11-9.06 5 0 9.06 4.06 9.06 9.06 0 5.05-4.06 9.1-9.06 9.1Zm5.04-6.7c-.28-.14-1.66-.82-1.92-.9-.26-.1-.45-.14-.64.14-.2.28-.74.9-.9 1.08-.16.2-.33.22-.61.08-.28-.14-1.18-.43-2.24-1.36-.83-.74-1.4-1.66-1.56-1.94-.16-.28-.02-.43.12-.57.12-.12.28-.32.42-.48.14-.16.18-.28.28-.46.1-.2.05-.34-.02-.48-.08-.14-.64-1.54-.88-2.1-.24-.56-.48-.48-.66-.48h-.56c-.2 0-.52.08-.8.38-.28.28-1.06 1.02-1.06 2.48 0 1.46 1.08 2.86 1.24 3.06.16.2 2.13 3.24 5.16 4.54.72.32 1.28.5 1.72.64.72.22 1.38.18 1.9.1.58-.08 1.78-.72 2.04-1.42.26-.7.26-1.3.18-1.42-.08-.12-.26-.2-.54-.34Z"/></svg>
+        WhatsApp
+      </a>
+    </div>
+  </header>
+
+  <main>
+    <section id="home">
+      <div class="layout" style="display: grid; gap: 3rem;">
+        <div class="hero-text">
+          <h1>Excelência em cuidados automotivos com tecnologia de ponta</h1>
+          <p>Somos o centro automotivo completo para quem exige performance, segurança e estética impecável. Oferecemos manutenção preventiva, reparos avançados e personalização com garantia total de transparência.</p>
+          <a class="btn-whatsapp" href="https://wa.me/5511999998888?text=Quero%20um%20or%C3%A7amento%20personalizado" target="_blank" rel="noopener noreferrer">Solicitar orçamento agora</a>
+          <div class="hero-stats" aria-label="Indicadores de confiança">
+            <div class="stat-card">
+              <span>+3.200</span>
+              veículos atendidos
+            </div>
+            <div class="stat-card">
+              <span>4.9/5</span>
+              avaliação dos clientes
+            </div>
+            <div class="stat-card">
+              <span>24h</span>
+              suporte emergencial premium
+            </div>
+          </div>
+        </div>
+        <div class="slideshow" aria-label="Destaques de serviços">
+          <div class="slides">
+            <figure class="slide">
+              <img src="assets/services-illustration.svg" alt="Ilustração de carro esportivo em manutenção" />
+              <figcaption class="slide-caption">
+                <h3>Performance e Revisões Avançadas</h3>
+                <p>Diagnóstico computadorizado, revisão completa e atualização eletrônica para garantir máxima performance.</p>
+              </figcaption>
+            </figure>
+            <figure class="slide">
+              <img src="assets/facade-illustration.svg" alt="Ilustração da fachada moderna da Auto Prime" />
+              <figcaption class="slide-caption">
+                <h3>Estrutura Premium</h3>
+                <p>Centro técnico climatizado com boxes individuais, lounge executivo e monitoramento 24h.</p>
+              </figcaption>
+            </figure>
+            <figure class="slide">
+              <img src="assets/address-illustration.svg" alt="Ilustração do mapa com localização da Auto Prime" />
+              <figcaption class="slide-caption">
+                <h3>Localização Estratégica</h3>
+                <p>Próximo às principais avenidas da zona sul, fácil acesso para clientes corporativos e particulares.</p>
+              </figcaption>
+            </figure>
+          </div>
+          <div class="dots" role="tablist" aria-label="Selecionar destaque">
+            <button aria-label="Slide 1" data-index="0" class="active"></button>
+            <button aria-label="Slide 2" data-index="1"></button>
+            <button aria-label="Slide 3" data-index="2"></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="servicos">
+      <div class="layout">
+        <h2 class="section-title">Nossos <span>serviços especializados</span></h2>
+        <div class="services-grid">
+          <article class="service-card">
+            <img src="assets/services-illustration.svg" alt="Ilustração de carro esportivo em manutenção" />
+            <h3>Manutenção Premium</h3>
+            <p>Planos completos de manutenção preventiva e corretiva com peças originais.</p>
+            <ul>
+              <li>Diagnóstico eletrônico avançado</li>
+              <li>Revisão de freios, suspensão e direção</li>
+              <li>Troca de fluidos certificados</li>
+            </ul>
+          </article>
+          <article class="service-card">
+            <img src="assets/facade-illustration.svg" alt="Ilustração da fachada representando a oficina" />
+            <h3>Estética Automotiva</h3>
+            <p>Tratamentos exclusivos que realçam o brilho e a proteção da sua frota.</p>
+            <ul>
+              <li>Detailing completo e vitrificação</li>
+              <li>Higienização bactericida de interior</li>
+              <li>Proteção cerâmica de pintura e rodas</li>
+            </ul>
+          </article>
+          <article class="service-card">
+            <img src="assets/address-illustration.svg" alt="Ilustração destacando localização da empresa" />
+            <h3>Atendimento Corporativo</h3>
+            <p>Gestão de frotas com logística inteligente e relatórios personalizados.</p>
+            <ul>
+              <li>Retirada e entrega agendada</li>
+              <li>Relatórios de manutenção em tempo real</li>
+              <li>Canal exclusivo de suporte 24/7</li>
+            </ul>
+          </article>
+          <article class="service-card">
+            <img src="assets/services-illustration.svg" alt="Ilustração de carro representando personalização" />
+            <h3>Performance &amp; Upgrade</h3>
+            <p>Mapeamento de ECU, escapamentos esportivos e calibração dinamométrica.</p>
+            <ul>
+              <li>Stage 1, 2 e 3 com garantia</li>
+              <li>Instalação de kits esportivos homologados</li>
+              <li>Banco de potência exclusivo</li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="highlight-boxes">
+          <div class="highlight">
+            <img src="assets/facade-illustration.svg" alt="Imagem conceitual da fachada da Auto Prime" />
+            <h4>Fachada &amp; Estrutura</h4>
+            <p>Ambiente moderno, com lounge gourmet, coworking para clientes e boxes individuais monitorados por câmeras em tempo real.</p>
+          </div>
+          <div class="highlight">
+            <img src="assets/address-illustration.svg" alt="Imagem conceitual do endereço e rota" />
+            <h4>Localização Inteligente</h4>
+            <p>A 300 metros da Av. Santo Amaro, com estacionamento conveniado, carregadores para carros elétricos e fácil acesso ao metrô.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="endereco">
+      <div class="layout">
+        <h2 class="section-title">Como chegar à <span>Auto Prime Performance</span></h2>
+        <div class="map-container" role="region" aria-label="Mapa com localização">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3657.158215775304!2d-46.656571984516845!3d-23.56134976738244!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce59c94966f6b3%3A0x5ff8824f4a9bd2d2!2sAv.%20Santo%20Amaro%2C%20655%20-%20Vila%20Ol%C3%ADmpia%2C%20S%C3%A3o%20Paulo%20-%20SP!5e0!3m2!1spt-BR!2sbr!4v1715721600000!5m2!1spt-BR!2sbr" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+      </div>
+    </section>
+
+    <section id="provas">
+      <div class="layout">
+        <h2 class="section-title">Mais de 1.500 clientes <span>confiam e recomendam</span></h2>
+        <div class="social-proof">
+          <article class="proof-card">
+            <p>"Equipe impecável! Meu carro recebeu manutenção completa e ficou como novo. Transparência em cada etapa do processo."</p>
+            <span>Laura Martins · BMW Série 3</span>
+          </article>
+          <article class="proof-card">
+            <p>"Ganhei performance sem perder a garantia de fábrica. O dinamômetro deles é extremamente preciso. Recomendo demais."</p>
+            <span>Felipe Andrade · Audi S3</span>
+          </article>
+          <article class="proof-card">
+            <p>"Programa corporativo excelente. Controle total dos custos da frota e atendimento prioritário quando precisamos."</p>
+            <span>Renata Souza · Fleet Manager</span>
+          </article>
+          <article class="proof-card">
+            <p>"Experiência premium do começo ao fim. A sala vip é ótima para trabalhar enquanto acompanho o serviço pelo app."</p>
+            <span>Eduardo Lima · Mercedes GLC</span>
+          </article>
+          <article class="proof-card">
+            <p>"Higienização e vitrificação perfeitas. O brilho durou meses e o atendimento foi muito cuidadoso com cada detalhe."</p>
+            <span>Camila Rezende · Volvo XC60</span>
+          </article>
+          <article class="proof-card">
+            <p>"Ganhei confiança para indicar aos meus clientes. Eles atendem com prazo, qualidade e relatórios completos."</p>
+            <span>João Pires · Consultor Automotivo</span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq">
+      <div class="layout">
+        <h2 class="section-title">Perguntas frequentes <span>sobre nosso atendimento</span></h2>
+        <div class="faq-grid">
+          <details>
+            <summary>Vocês atendem veículos premium e importados?</summary>
+            <p>Sim. Nossa equipe é certificada pelas principais montadoras premium e utiliza scanners homologados para Audi, BMW, Mercedes, Land Rover e outras marcas importadas.</p>
+          </details>
+          <details>
+            <summary>Quanto tempo leva para receber um orçamento?</summary>
+            <p>Respondemos orçamentos pelo WhatsApp em até 10 minutos durante o horário comercial. Para frotas, disponibilizamos consultor exclusivo em até 2 horas.</p>
+          </details>
+          <details>
+            <summary>Existe garantia sobre os serviços realizados?</summary>
+            <p>Sim. Todos os serviços possuem garantia escrita de 12 meses ou 10.000 km, além de peças originais com nota fiscal.</p>
+          </details>
+          <details>
+            <summary>Vocês oferecem carro reserva?</summary>
+            <p>Disponibilizamos carro reserva ou serviço de motorista parceiro conforme a modalidade contratada. Consulte disponibilidade no agendamento.</p>
+          </details>
+          <details>
+            <summary>Como funciona o atendimento para frotas corporativas?</summary>
+            <p>Montamos planos personalizados com retirada programada, check-list digital, relatórios mensais e portal exclusivo para aprovações.</p>
+          </details>
+          <details>
+            <summary>Posso acompanhar o serviço à distância?</summary>
+            <p>Claro! Enviamos fotos, vídeos e atualizações via aplicativo, além de permitir acompanhamento ao vivo das câmeras dos boxes técnicos.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section id="orcamento">
+      <div class="layout">
+        <div class="cta-section">
+          <h3>Pronto para transformar a experiência com seu carro?</h3>
+          <p>Envie agora mesmo uma mensagem pelo WhatsApp. Nossa equipe responde rapidamente com um plano sob medida para você ou para sua empresa.</p>
+          <a class="btn-whatsapp" href="https://wa.me/5511999998888?text=Ol%C3%A1%2C%20quero%20agendar%20um%20hor%C3%A1rio%20na%20Auto%20Prime" target="_blank" rel="noopener noreferrer">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" aria-hidden="true"><path d="M16.02 4C9.93 4 5 8.94 5 15.02c0 2.4.7 4.66 2 6.6L5 27l5.55-1.82A11.02 11.02 0 0 0 16.02 26C22.1 26 27 21.07 27 15 27 8.94 22.1 4 16.02 4Zm0 19.78c-1.74 0-3.44-.47-4.92-1.36l-.35-.2-3.29 1.08 1.08-3.2-.23-.34a9.04 9.04 0 0 1-1.4-4.83c0-5 4.06-9.06 9.11-9.06 5 0 9.06 4.06 9.06 9.06 0 5.05-4.06 9.1-9.06 9.1Zm5.04-6.7c-.28-.14-1.66-.82-1.92-.9-.26-.1-.45-.14-.64.14-.2.28-.74.9-.9 1.08-.16.2-.33.22-.61.08-.28-.14-1.18-.43-2.24-1.36-.83-.74-1.4-1.66-1.56-1.94-.16-.28-.02-.43.12-.57.12-.12.28-.32.42-.48.14-.16.18-.28.28-.46.1-.2.05-.34-.02-.48-.08-.14-.64-1.54-.88-2.1-.24-.56-.48-.48-.66-.48h-.56c-.2 0-.52.08-.8.38-.28.28-1.06 1.02-1.06 2.48 0 1.46 1.08 2.86 1.24 3.06.16.2 2.13 3.24 5.16 4.54.72.32 1.28.5 1.72.64.72.22 1.38.18 1.9.1.58-.08 1.78-.72 2.04-1.42.26-.7.26-1.3.18-1.42-.08-.12-.26-.2-.54-.34Z"/></svg>
+            Falar com especialista agora
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="layout">
+      © 2024 Auto Prime Performance · CNPJ 00.000.000/0001-00 · Atendimento de segunda a sábado, das 8h às 20h
+    </div>
+  </footer>
+
+  <div class="floating-whatsapp">
+    <a href="https://wa.me/5511999998888?text=Quero%20um%20or%C3%A7amento%20agora" target="_blank" rel="noopener noreferrer" aria-label="Contato rápido pelo WhatsApp">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" aria-hidden="true"><path d="M16.02 4C9.93 4 5 8.94 5 15.02c0 2.4.7 4.66 2 6.6L5 27l5.55-1.82A11.02 11.02 0 0 0 16.02 26C22.1 26 27 21.07 27 15 27 8.94 22.1 4 16.02 4Zm0 19.78c-1.74 0-3.44-.47-4.92-1.36l-.35-.2-3.29 1.08 1.08-3.2-.23-.34a9.04 9.04 0 0 1-1.4-4.83c0-5 4.06-9.06 9.11-9.06 5 0 9.06 4.06 9.06 9.06 0 5.05-4.06 9.1-9.06 9.1Zm5.04-6.7c-.28-.14-1.66-.82-1.92-.9-.26-.1-.45-.14-.64.14-.2.28-.74.9-.9 1.08-.16.2-.33.22-.61.08-.28-.14-1.18-.43-2.24-1.36-.83-.74-1.4-1.66-1.56-1.94-.16-.28-.02-.43.12-.57.12-.12.28-.32.42-.48.14-.16.18-.28.28-.46.1-.2.05-.34-.02-.48-.08-.14-.64-1.54-.88-2.1-.24-.56-.48-.48-.66-.48h-.56c-.2 0-.52.08-.8.38-.28.28-1.06 1.02-1.06 2.48 0 1.46 1.08 2.86 1.24 3.06.16.2 2.13 3.24 5.16 4.54.72.32 1.28.5 1.72.64.72.22 1.38.18 1.9.1.58-.08 1.78-.72 2.04-1.42.26-.7.26-1.3.18-1.42-.08-.12-.26-.2-.54-.34Z"/></svg>
+    </a>
+  </div>
+
+  <script>
+    const slideshow = document.querySelector('.slideshow');
+    const slidesContainer = document.querySelector('.slides');
+    const dots = document.querySelectorAll('.dots button');
+    let currentSlide = 0;
+
+    const updateSlide = (index) => {
+      currentSlide = index;
+      slidesContainer.style.transform = `translateX(-${index * 100}%)`;
+      dots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === index);
+      });
+    };
+
+    dots.forEach((dot) => {
+      dot.addEventListener('click', () => {
+        updateSlide(Number(dot.dataset.index));
+      });
+    });
+
+    setInterval(() => {
+      const next = (currentSlide + 1) % dots.length;
+      updateSlide(next);
+    }, 5500);
+  </script>
+</body>
+</html>
